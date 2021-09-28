@@ -26,7 +26,7 @@ const app = new Vue({
     }
    },
     created() {
-     this.socket = io('http://localhost:3000', { withCredentials: false })
+     this.socket = io('https://websocket-chat-nestjs.herokuapp.com/', { withCredentials: false })
      this.socket.on('message', (message) => {
       this.receivedMessage(message)
      })
