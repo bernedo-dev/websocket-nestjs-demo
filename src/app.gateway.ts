@@ -36,8 +36,9 @@ export class AppGateway {
 
   handleConnection(client:Socket, ...args:any[]){
     this.logger.debug(`Client connected: ${client.id}`);
+    this.logger.debug(`key--------------->${client.handshake.headers.key}`)
     if(client.handshake.headers.key !== 'hm2021'){
-      client.disconnect();
+      //client.disconnect();
     }
     client.emit('message', {name:'Team Hamilton-Murphy', text:"Te has conectado al servidor, crack!" });
     this.users++;
