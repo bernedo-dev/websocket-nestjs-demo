@@ -3,7 +3,15 @@ import { SubscribeMessage, WebSocketGateway, WebSocketServer } from '@nestjs/web
 import { Socket, Server } from 'socket.io';
 
 
-@WebSocketGateway({allowEIO3:true})
+const options  = {
+  allowEIO3:true,
+  cors:{
+    origin:'*',
+    methods: ["GET", "POST"]
+  }
+}
+
+@WebSocketGateway({ allowEIO3:true })
 export class AppGateway {
 
   users: number = 0;
@@ -28,6 +36,9 @@ export class AppGateway {
 
   handleConnection(client:Socket, ...args:any[]){
     this.logger.debug(`Client connected: ${client.id}`);
+    if(client.handshake.headers.key !== 'hm2021'){
+      client.disconnect();
+    }
     client.emit('message', {name:'Team Hamilton-Murphy', text:"Te has conectado al servidor, crack!" });
     this.users++;
     this.server.emit('connected-clients',{q:this.users});
