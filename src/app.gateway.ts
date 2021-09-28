@@ -6,6 +6,8 @@ import { Socket, Server } from 'socket.io';
 @WebSocketGateway({allowEIO3:true})
 export class AppGateway {
 
+  users: number = 0;
+
   @WebSocketServer() 
   server: Server;
 
@@ -21,15 +23,20 @@ export class AppGateway {
 
   afterInit(server: Server){
     this.logger.debug('Iniciado socket');
+    this.users = 0;
   }
 
   handleConnection(client:Socket, ...args:any[]){
     this.logger.debug(`Client connected: ${client.id}`);
-    client.emit('message', {name:'Team Hamilton-Murphy', text:"Te has conectado al servidor, crack!" })
+    client.emit('message', {name:'Team Hamilton-Murphy', text:"Te has conectado al servidor, crack!" });
+    this.users++;
+    this.server.emit('connected-clients',{q:this.users});
   }
-
+  
   handleDisconnect(client:Socket){
     this.logger.debug(`Client disconnected: ${client.id}`);
+    this.users--;
+    this.server.emit('connected-clients',{q:this.users});
   }
 
 

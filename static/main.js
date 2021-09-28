@@ -5,6 +5,7 @@ const app = new Vue({
      name: '',
      text: '',
      messages: [],
+     connectedClients: 0,
      socket: null
     },
     methods: {
@@ -27,8 +28,12 @@ const app = new Vue({
    },
     created() {
      this.socket = io('https://hamilton-murphy-chat.herokuapp.com/', { withCredentials: false })
+    //  this.socket = io('http://localhost:3000', { withCredentials: false })
      this.socket.on('message', (message) => {
       this.receivedMessage(message)
-     })
+     });
+     this.socket.on('connected-clients', (message) =>{
+        this.connectedClients = message.q;
+     });
     }
    })
