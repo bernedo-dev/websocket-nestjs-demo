@@ -38,7 +38,10 @@ export class AppGateway {
     this.logger.debug(`Client connected: ${client.id}`);
     this.logger.debug(`key--------------->${client.handshake.headers.key}`)
     if(client.handshake.headers.key !== 'hm2021'){
-      //client.disconnect();
+      this.logger.debug('cliente no autorizado')
+      client.disconnect();
+    }else{
+      this.logger.debug('CLIENTE AUTORIZADO')
     }
     client.emit('message', {name:'Team Hamilton-Murphy', text:"Te has conectado al servidor, crack!" });
     this.users++;
