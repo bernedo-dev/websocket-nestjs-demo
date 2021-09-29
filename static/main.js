@@ -6,6 +6,7 @@ const app = new Vue({
      text: '',
      messages: [],
      connectedClients: 0,
+     optionButtons: [],
      socket: null
     },
     methods: {
@@ -28,12 +29,16 @@ const app = new Vue({
    },
     created() {
      this.socket = io('https://hamilton-murphy-chat.herokuapp.com/', { extraHeaders:{ key:'hm2021'}, query:{testQuery1:'test-query-param'} })
-    //  this.socket = io('http://localhost:3000',{ extraHeaders:{ key:'hm20212'}, query:{testQuery1:'test-query-param'} });
-     this.socket.on('message', (message) => {
+   //   this.socket = io('http://localhost:3000',{ extraHeaders:{ key:'hm2021'}, query:{testQuery1:'test-query-param'} });
+     this.socket.on('chat', (message) => {
       this.receivedMessage(message)
      });
      this.socket.on('connected-clients', (message) =>{
         this.connectedClients = message.q;
      });
+     this.socket.on('option-buttons', (options) => {
+      this.optionButtons = [];
+      this.optionButtons = options;
+     })
     }
    })
