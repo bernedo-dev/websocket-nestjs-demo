@@ -11,7 +11,7 @@ const options  = {
   }
 }
 
-@WebSocketGateway({ allowEIO3:true })
+@WebSocketGateway({ allowEIO3:true, namespace:'websocket/co' })
 export class AppGateway {
 
   users: number = 0;
@@ -45,14 +45,7 @@ export class AppGateway {
     }
     client.emit('chat', {name:'Team Hamilton-Murphy', text:"¡Hola! ¿En qué te puedo ayudar?" });
     setTimeout(() => {
-      // client.emit('chat', {name:'1', text:'Solicitar Productos'});
-      // client.emit('chat', {name:'2', text:'Consultas relacionadas a Falabella, Sodimac, Tottus, Linio.'});
-      // client.emit('chat', {name:'3', text:'Ubicación oficinas y sus horarios'});
-      // client.emit('chat', {name:'4', text:'Solicitar Estado de Cuenta o Cartola'});
-      // client.emit('chat', {name:'5', text:'Crear o recuperar claves'});
-      // client.emit('chat', {name:'6', text:'Bloquear/Desbloquear'});
-      // client.emit('chat', {name:'7', text:'Conocer Facturado pendiente y/o Pago mínimo'});
-      // client.emit('chat', {name:'8', text:'Otro'});
+    
       client.emit('option-buttons',[
         {key:'1', value:'Solicitar Productos'},
         {key:'2', value:'Consultas relacionadas a Falabella, Sodimac, Tottus, Linio.'},

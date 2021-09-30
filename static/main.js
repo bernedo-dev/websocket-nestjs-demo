@@ -28,8 +28,8 @@ const app = new Vue({
     }
    },
     created() {
-     this.socket = io('https://hamilton-murphy-chat.herokuapp.com/', { extraHeaders:{ key:'hm2021'}, query:{testQuery1:'test-query-param'} })
-   //   this.socket = io('http://localhost:3000',{ extraHeaders:{ key:'hm2021'}, query:{testQuery1:'test-query-param'} });
+     this.socket = io('https://hamilton-murphy-chat.herokuapp.com/websocket/co', { extraHeaders:{ key:'hm2021'}, query:{testQuery1:'test-query-param'} })
+    //  this.socket = io('http://localhost:3000/websocket/co',{ extraHeaders:{ key:'hm2021'}, query:{testQuery1:'test-query-param'} });
      this.socket.on('chat', (message) => {
       this.receivedMessage(message)
      });
